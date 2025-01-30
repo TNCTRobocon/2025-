@@ -79,10 +79,10 @@ int main(void)
 	   filter.FilterIdLow          = 0x000 << 5;                  // ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ID2
 	   filter.FilterMaskIdHigh     = 0x000 << 5;                  // ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ID3
 	   filter.FilterMaskIdLow      = 0x000 << 5;    // ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ID4
-	   filter.FilterScale          = CAN_FILTERSCALE_16BIT; // 16ãƒ¢ãƒ¼???¿½?¿½??¿½?¿½?
-	   filter.FilterFIFOAssignment = CAN_FILTER_FIFO0;      // FIFO0ã¸æ ¼???¿½?¿½??¿½?¿½?
+	   filter.FilterScale          = CAN_FILTERSCALE_16BIT; // 16ãƒ¢ãƒ¼????ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½???ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½?
+	   filter.FilterFIFOAssignment = CAN_FILTER_FIFO0;      // FIFO0ã¸æ ¼????ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½???ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½?
 	   filter.FilterBank           = 0;
-	   filter.FilterMode           = CAN_FILTERMODE_IDLIST; // IDãƒªã‚¹ãƒˆãƒ¢ãƒ¼???¿½?¿½??¿½?¿½?
+	   filter.FilterMode           = CAN_FILTERMODE_IDLIST; // IDãƒªã‚¹ãƒˆãƒ¢ãƒ¼????ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½???ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½?
 	   filter.SlaveStartFilterBank = 14;
 	   filter.FilterActivation     = ENABLE;
 
@@ -110,7 +110,7 @@ int main(void)
   MX_CAN1_Init();
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
-	// CANã‚¹ã‚¿ãƒ¼???¿½?¿½??¿½?¿½?
+	// CANã‚¹ã‚¿ãƒ¼????ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½???ï¿½ï¿½?ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½?
 	HAL_CAN_Start(&hcan1);
 	// å‰²ã‚Šè¾¼ã¿æœ‰åŠ¹
 	HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
@@ -120,7 +120,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  a++;
+	  //a++;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -276,11 +276,11 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void CAN1_RX0_IRQHandler(void)
-{
-	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
-    HAL_CAN_IRQHandler(&hcan1);
-}
+//void CAN1_RX0_IRQHandler(void)
+//{
+//	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
+//    //HAL_CAN_IRQHandler(&hcan1);
+//}
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_6);
@@ -299,7 +299,6 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
         }
 
     }
-    HAL_CAN_IRQHandler(&hcan1);
 }
 
 /* USER CODE END 4 */
