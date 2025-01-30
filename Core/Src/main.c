@@ -79,10 +79,10 @@ int main(void)
 	   filter.FilterIdLow          = 0x000 << 5;                  // ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ID2
 	   filter.FilterMaskIdHigh     = 0x000 << 5;                  // ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ID3
 	   filter.FilterMaskIdLow      = 0x000 << 5;    // ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ID4
-	   filter.FilterScale          = CAN_FILTERSCALE_16BIT; // 16ãƒ¢ãƒ¼??ï¿½ï¿½?ï¿½ï¿½?
-	   filter.FilterFIFOAssignment = CAN_FILTER_FIFO0;      // FIFO0ã¸æ ¼??ï¿½ï¿½?ï¿½ï¿½?
+	   filter.FilterScale          = CAN_FILTERSCALE_16BIT; // 16ãƒ¢ãƒ¼???¿½?¿½??¿½?¿½?
+	   filter.FilterFIFOAssignment = CAN_FILTER_FIFO0;      // FIFO0ã¸æ ¼???¿½?¿½??¿½?¿½?
 	   filter.FilterBank           = 0;
-	   filter.FilterMode           = CAN_FILTERMODE_IDLIST; // IDãƒªã‚¹ãƒˆãƒ¢ãƒ¼??ï¿½ï¿½?ï¿½ï¿½?
+	   filter.FilterMode           = CAN_FILTERMODE_IDLIST; // IDãƒªã‚¹ãƒˆãƒ¢ãƒ¼???¿½?¿½??¿½?¿½?
 	   filter.SlaveStartFilterBank = 14;
 	   filter.FilterActivation     = ENABLE;
 
@@ -110,7 +110,7 @@ int main(void)
   MX_CAN1_Init();
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
-	// CANã‚¹ã‚¿ãƒ¼??ï¿½ï¿½?ï¿½ï¿½?
+	// CANã‚¹ã‚¿ãƒ¼???¿½?¿½??¿½?¿½?
 	HAL_CAN_Start(&hcan1);
 	// å‰²ã‚Šè¾¼ã¿æœ‰åŠ¹
 	HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
@@ -191,8 +191,6 @@ static void MX_CAN1_Init(void)
   /* USER CODE BEGIN CAN1_Init 1 */
 
   /* USER CODE END CAN1_Init 1 */
-	HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 0, 0); // å‰²ã‚Šè¾¼ã¿å„ªå…ˆåº¦ã‚’è¨­å®š
-	HAL_NVIC_EnableIRQ(CAN1_RX0_IRQn);         // å‰²ã‚Šè¾¼ã¿ã‚’æœ‰åŠ¹åŒ–
   hcan1.Instance = CAN1;
   hcan1.Init.Prescaler = 3;
   hcan1.Init.Mode = CAN_MODE_NORMAL;
