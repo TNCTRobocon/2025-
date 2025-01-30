@@ -54,7 +54,7 @@ static void MX_GPIO_Init(void);
 static void MX_CAN1_Init(void);
 static void MX_UART4_Init(void);
 /* USER CODE BEGIN PFP */
-void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan);
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan1);
 
 /* USER CODE END PFP */
 
@@ -276,17 +276,12 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-//void CAN1_RX0_IRQHandler(void)
-//{
-//	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
-//    //HAL_CAN_IRQHandler(&hcan1);
-//}
-void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
+void HAL_CAN1_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan1)
 {
 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_6);
     CAN_RxHeaderTypeDef RxHeader;
-    uint8_t RxData[8];
-    if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData) == HAL_OK)
+    uint8_t RxData[25];
+    if (HAL_CAN_GetRxMessage(hcan1, CAN_RX_FIFO0, &RxHeader, RxData) == HAL_OK)
     {
         id = (RxHeader.IDE == CAN_ID_STD)? RxHeader.StdId : RxHeader.ExtId;     // ID
         dlc = RxHeader.DLC;                                                     // DLC
