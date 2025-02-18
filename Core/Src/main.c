@@ -63,7 +63,6 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan1);
 uint32_t id;
 uint32_t dlc;
 uint8_t data[25] = {0};
-uint8_t a=1,b,c;
 /* USER CODE END 0 */
 
 /**
@@ -74,19 +73,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-	CAN_FilterTypeDef filter;
-	   filter.FilterIdHigh         = 0x123 << 5;                  // フィルターID1
-	   filter.FilterIdLow          = 0x000 << 5;                  // フィルターID2
-	   filter.FilterMaskIdHigh     = 0x000 << 5;                  // フィルターID3
-	   filter.FilterMaskIdLow      = 0x000 << 5;    // フィルターID4
-	   filter.FilterScale          = CAN_FILTERSCALE_16BIT; // 16モー????��?��??��?��???��?��??��?��?
-	   filter.FilterFIFOAssignment = CAN_FILTER_FIFO0;      // FIFO0へ格????��?��??��?��???��?��??��?��?
-	   filter.FilterBank           = 0;
-	   filter.FilterMode           = CAN_FILTERMODE_IDLIST; // IDリストモー????��?��??��?��???��?��??��?��?
-	   filter.SlaveStartFilterBank = 14;
-	   filter.FilterActivation     = ENABLE;
 
-	   HAL_CAN_ConfigFilter(&hcan1, &filter);
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -110,10 +97,23 @@ int main(void)
   MX_CAN1_Init();
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
-	// CANスター????��?��??��?��???��?��??��?��?
+	// CANスター?????��?��??��?��???��?��??��?��????��?��??��?��???��?��??��?��?
 	HAL_CAN_Start(&hcan1);
 	// 割り込み有効
 	HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
+	CAN_FilterTypeDef filter;
+	   filter.FilterIdHigh         = 0x123 << 5;                  // フィルターID1
+	   filter.FilterIdLow          = 0x000 << 5;                  // フィルターID2
+	   filter.FilterMaskIdHigh     = 0x000 << 5;                  // フィルターID3
+	   filter.FilterMaskIdLow      = 0x000 << 5;    // フィルターID4
+	   filter.FilterScale          = CAN_FILTERSCALE_16BIT; // 16モー?????��?��??��?��???��?��??��?��????��?��??��?��???��?��??��?��?
+	   filter.FilterFIFOAssignment = CAN_FILTER_FIFO0;      // FIFO0へ格?????��?��??��?��???��?��??��?��????��?��??��?��???��?��??��?��?
+	   filter.FilterBank           = 0;
+	   filter.FilterMode           = CAN_FILTERMODE_IDLIST; // IDリストモー?????��?��??��?��???��?��??��?��????��?��??��?��???��?��??��?��?
+	   filter.SlaveStartFilterBank = 14;
+	   filter.FilterActivation     = ENABLE;
+
+   HAL_CAN_ConfigFilter(&hcan1, &filter);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -276,11 +276,11 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_CAN1_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan1)
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan1)
 {
 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_6);
     CAN_RxHeaderTypeDef RxHeader;
-    uint8_t RxData[25];
+    uint8_t RxData[25] = {0};
     if (HAL_CAN_GetRxMessage(hcan1, CAN_RX_FIFO0, &RxHeader, RxData) == HAL_OK)
     {
         id = (RxHeader.IDE == CAN_ID_STD)? RxHeader.StdId : RxHeader.ExtId;     // ID
